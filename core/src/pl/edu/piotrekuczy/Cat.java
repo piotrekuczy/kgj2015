@@ -19,23 +19,28 @@ public class Cat {
 	float animationTime = 0;
 
 	Vector2 catPos;
+	int catGround;
 	Vector2 velocity;
 	float catRad = 40f;
 	int ghostOffset;
+	float myGravity;
+	boolean jump;
 
 	private Circle catCircle;
 
-	public Cat(Vector2 catPos, float vel, int ghostOffset) {
+	public Cat(Vector2 catPos, float vel, int ghostOffset, float myGravity) {
 
 		this.catPos = catPos;
+		catGround = (int) catPos.y;
 		this.velocity = new Vector2(vel, 0);
-		catCircle = new Circle(catPos.x, catPos.y+30, catRad);
-		
+		catCircle = new Circle(catPos.x, catPos.y + 30, catRad);
+
 		this.ghostOffset = ghostOffset;
+		this.myGravity = myGravity;
 
 		// spine
 
-		//cat
+		// cat
 		catAtlas = new TextureAtlas(Gdx.files.internal("spine/ingame/cat.atlas"));
 		catJson = new SkeletonJson(catAtlas);
 		catSkeletonData = catJson.readSkeletonData(Gdx.files.internal("spine/ingame/cat.json"));
@@ -45,36 +50,51 @@ public class Cat {
 		catSkeleton.setPosition(catPos.x, catPos.y);
 		// skeleton.setColor(new Color(0, 1, 1, 1));
 		catSkeleton.updateWorldTransform();
-		
-		//ghost
+
+		// ghost
 		ghostAtlas = new TextureAtlas(Gdx.files.internal("spine/ingame/ghost.atlas"));
 		ghostJson = new SkeletonJson(ghostAtlas);
 		ghostSkeletonData = ghostJson.readSkeletonData(Gdx.files.internal("spine/ingame/ghost.json"));
 		ghostSkeleton = new Skeleton(ghostSkeletonData);
 		ghostRunAnimation = ghostSkeletonData.findAnimation("fly");
 		ghostSkeleton.getRootBone().setScale(0.7f);
-		ghostSkeleton.setPosition(catPos.x-ghostOffset, catPos.y+20);
+		ghostSkeleton.setPosition(catPos.x - ghostOffset, catPos.y + 20);
 		// ghostSkeleton.setColor(new Color(0, 1, 1, 1));
 		ghostSkeleton.updateWorldTransform();
 
 	}
 
 	public void update(float delta) {
+
 		animationTime += Gdx.graphics.getDeltaTime();
-		//cat
+		// cat
 		catRunAnimation.apply(catSkeleton, 0, animationTime, true, null);
 		catSkeleton.updateWorldTransform();
-		//ghost
+		// ghost
 		ghostRunAnimation.apply(ghostSkeleton, 0, animationTime, true, null);
 		ghostSkeleton.updateWorldTransform();
-		
-		//cat
+
+		// cat
 		catPos.x += velocity.x * delta;
+		catPos.y += velocity.y * delta;
 		catCircle.x = catPos.x;
-		catCircle.y = catPos.y+30;
+		catCircle.y = catPos.y + 30;
 		catSkeleton.setPosition(catPos.x, catPos.y);
-		//ghost
-		ghostSkeleton.setPosition(catPos.x-ghostOffset, catPos.y+20);
+		// ghost
+		ghostSkeleton.setPosition(catPos.x - ghostOffset, catPos.y + 20);
+
+		// gravity
+		velocity.y += myGravity * delta * 10;
+		
+		// ground check
+		if (catPos.y <= catGround){
+			catPos.y = catGround;
+			velocity.y = 0;
+			jump = false;
+		}
+		if (catPos.y > catGround){
+			jump = true;
+		}
 
 	}
 
@@ -116,6 +136,14 @@ public class Cat {
 
 	public void setGhostSkeleton(Skeleton ghostSkeleton) {
 		this.ghostSkeleton = ghostSkeleton;
+	}
+
+	public boolean isJump() {
+		return jump;
+	}
+
+	public void setJump(boolean jump) {
+		this.jump = jump;
 	}
 
 }

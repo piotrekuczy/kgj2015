@@ -41,11 +41,18 @@ public class GameScreen implements Screen, InputProcessor {
 
 	// cat
 	Cat myCat;
-	float catVel = 260f;
+	float catVel = 60f;
 	int catStartX = 0;
 	int ghostOffset = 100;
 
+	// gameplay variables
+	// gravity
+	float myGravity = -130f;
+	// floor number
 	int floor;
+	// booleans
+	boolean jump = false;
+	// timers
 
 	public GameScreen(KgjGame game) {
 		this.game = game;
@@ -84,16 +91,16 @@ public class GameScreen implements Screen, InputProcessor {
 		System.out.println(floor);
 		switch (floor) {
 		case 0:
-			myCat = new Cat(new Vector2(catStartX, 10), catVel, ghostOffset);
+			myCat = new Cat(new Vector2(catStartX, 10), catVel, ghostOffset, myGravity);
 			break;
 		case 1:
-			myCat = new Cat(new Vector2(catStartX, 230), catVel, ghostOffset);
+			myCat = new Cat(new Vector2(catStartX, 230), catVel, ghostOffset, myGravity);
 			break;
 		case 2:
-			myCat = new Cat(new Vector2(catStartX, 450), catVel, ghostOffset);
+			myCat = new Cat(new Vector2(catStartX, 450), catVel, ghostOffset, myGravity);
 			break;
 		case 3:
-			myCat = new Cat(new Vector2(catStartX, 670), catVel, ghostOffset);
+			myCat = new Cat(new Vector2(catStartX, 670), catVel, ghostOffset, myGravity);
 			break;
 		}
 
@@ -133,7 +140,8 @@ public class GameScreen implements Screen, InputProcessor {
 		shpr.setColor(1, 1, 1, 1f);
 		shpr.circle(myCat.getCatCircle().x, myCat.getCatCircle().y, myCat.getCatRad());
 		shpr.end();
-
+		
+//		System.out.println("jump timer=" + jumpTimer);
 	}
 
 	@Override
@@ -226,14 +234,18 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
-		System.out.println("TACZDALN");
+		if (!myCat.isJump()){
+//			System.out.println("TACZDALN");
+			jump = true;
+			myCat.getVelocity().y = 350f;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
-		System.out.println("TACZUP");
+//		System.out.println("TACZUP");
 		return false;
 	}
 
