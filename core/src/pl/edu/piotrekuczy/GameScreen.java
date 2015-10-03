@@ -2,6 +2,7 @@ package pl.edu.piotrekuczy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, InputProcessor {
 
 	KgjGame game;
 
@@ -52,6 +53,12 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+
+//		GestureDetector gd = new GestureDetector(this);
+//		Gdx.input.setInputProcessor(gd);
+		
+		 Gdx.input.setInputProcessor(this);
+		
 
 		System.out.println("show method of gamescreen");
 		batch = new SpriteBatch();
@@ -195,4 +202,58 @@ public class GameScreen implements Screen {
 
 	}
 
+	
+	// ------- INPUT PROCESSOR
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		System.out.println("TACZDALN");
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		System.out.println("TACZUP");
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 }
