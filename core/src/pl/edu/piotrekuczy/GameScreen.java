@@ -39,6 +39,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	// bitmaps
 	Texture gameMask;
+	Texture worlds;
 
 	// fonts
 	GlyphLayout glay;
@@ -82,8 +83,13 @@ public class GameScreen implements Screen, InputProcessor {
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		viewport = new FitViewport(640, 960, camera);
 		camera.update();
+
+		// bitmaps
 		gameMask = new Texture(Gdx.files.internal("bitmaps/gameMask.png"));
 		gameMask.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		worlds = new Texture(Gdx.files.internal("bitmaps/worlds.png"));
+		worlds.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
 		font = new BitmapFont(Gdx.files.internal("fonts/mariofont.fnt"));
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		font.getData().setScale(0.99f);
@@ -100,6 +106,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 		// random pos
 		floor = MathUtils.random(0, 3);
+		// floor = 3;
 		// System.out.println(floor);
 		switch (floor) {
 		case 0:
@@ -164,11 +171,17 @@ public class GameScreen implements Screen, InputProcessor {
 		batch.setProjectionMatrix(camera.combined);
 		dr.getShapeRenderer().setProjectionMatrix(camera.combined);
 
-		Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
+		Gdx.graphics.getGL20().glClearColor(0, 0, 0, 1);
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+		shpr.begin(ShapeType.Filled);
+		shpr.setColor(1, 0, 0, 1);
+		shpr.rect(0, 0, 640, 960);
+		shpr.end();
 		// batch
 		batch.begin();
+		// worlds
+		batch.draw(worlds, 0, 0);
 		// spine
 		sr.draw(batch, myCat.getGhostSkeleton());
 		sr.draw(batch, myCat.getSkeleton());
@@ -213,6 +226,34 @@ public class GameScreen implements Screen, InputProcessor {
 		for (Killer killer : killers) {
 			shpr.circle(killer.getKillerCircle().x + 25, killer.getKillerCircle().y, killer.getKillerRadius());
 		}
+		shpr.end();
+
+		// zaslaniacze
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		shpr.begin(ShapeType.Filled);
+		shpr.setColor(0, 0, 0, 0.8f);
+		switch (floor) {
+		case 0:
+			// zasłon wszystko poza 0
+			shpr.rect(0, 220, 640, 760);
+			break;
+		case 1:
+			// zasłon wszystko poza 0
+			shpr.rect(0, 0, 640, 225);
+			shpr.rect(0, 440, 640, 760);
+			break;
+		case 2:
+			// zasłon wszystko poza 0
+			shpr.rect(0, 0, 640, 440);
+			shpr.rect(0, 660, 640, 760);
+			break;
+		case 3:
+			// zasłon wszystko poza 0
+			shpr.rect(0, 0, 640, 660);
+			break;
+		}
+
 		shpr.end();
 
 		// score
