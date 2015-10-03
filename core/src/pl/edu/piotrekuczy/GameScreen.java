@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
@@ -20,6 +21,12 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.esotericsoftware.spine.Animation;
+import com.esotericsoftware.spine.AnimationState;
+import com.esotericsoftware.spine.AnimationStateData;
+import com.esotericsoftware.spine.Skeleton;
+import com.esotericsoftware.spine.SkeletonData;
+import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 
@@ -75,6 +82,16 @@ public class GameScreen implements Screen, InputProcessor {
 	// timers
 	float scoreTimer;
 
+	// SPINE gameOver
+
+	TextureAtlas overAtlas;
+	SkeletonJson overJson;
+	SkeletonData overSkeletonData;
+	Skeleton overSkeleton;
+	Animation overInAnimation, overIdleAnimation, overOutAnimation;
+	float animationTime = 0;
+	AnimationState state;
+	
 	public GameScreen(KgjGame game) {
 		this.game = game;
 	}
@@ -110,6 +127,25 @@ public class GameScreen implements Screen, InputProcessor {
 		dr.setBoundingBoxes(false);
 		dr.setRegionAttachments(false);
 
+		// spine
+
+		overAtlas = new TextureAtlas(Gdx.files.internal("spine/gui/gameover.atlas"));
+		overJson = new SkeletonJson(overAtlas);
+		overSkeletonData = overJson.readSkeletonData(Gdx.files.internal("spine/gui/gameover.json"));
+		overSkeleton = new Skeleton(overSkeletonData);
+		overInAnimation = overSkeletonData.findAnimation("in");
+		overIdleAnimation = overSkeletonData.findAnimation("idle");
+		overOutAnimation = overSkeletonData.findAnimation("out");
+		overSkeleton.getRootBone().setScale(1f);
+		overSkeleton.setPosition(-20, -50);
+
+		overSkeleton.updateWorldTransform();
+		AnimationStateData stateData = new AnimationStateData(overSkeletonData);
+		state = new AnimationState(stateData);
+		state.setAnimation(0, "in", false);
+		state.addAnimation(0, "idle",false, 0);
+		state.addAnimation(0, "out",false, 0);
+		
 		// array of killers
 		killers = new Array<Killer>();
 
@@ -266,9 +302,10 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-
-		scoreTimer += 0.1f;
-		scoreTimer = (float) ((double) Math.round(scoreTimer * 10d) / 10d);
+		if (!gameOver) {
+			scoreTimer += 0.1f;
+			scoreTimer = (float) ((double) Math.round(scoreTimer * 10d) / 10d);
+		}
 		// System.out.println(scoreTimer);
 		glay.setText(font, scoreTimer + "", new Color(1, 1, 1, 1), 800, Align.left, true);
 
@@ -367,7 +404,18 @@ public class GameScreen implements Screen, InputProcessor {
 		batch.begin();
 		font.draw(batch, glay, (viewport.getWorldWidth() / 2) - 100, 940);
 		batch.end();
-
+		
+		// gameover
+		if(gameOver){
+			
+		state.update(Gdx.graphics.getDeltaTime());
+		state.apply(overSkeleton);
+		overSkeleton.updateWorldTransform();
+		batch.begin();
+		sr.draw(batch, overSkeleton);
+		batch.end();
+		}
+		
 		checkcollisions();
 		checkBounds();
 
@@ -377,12 +425,12 @@ public class GameScreen implements Screen, InputProcessor {
 		if (!gameOver) {
 			if (myCat.getVelocity().x > 0) {
 				if (myCat.getCatPos().x >= 700) {
-//					System.out.println("END");
+					// System.out.println("END");
 					newFloor();
 				}
 			} else {
 				if (myCat.getCatPos().x <= -100) {
-//					System.out.println("END");
+					// System.out.println("END");
 					newFloor();
 				}
 			}
@@ -390,21 +438,24 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 
 	public void checkcollisions() {
-		 for (Killer killer : killers) {
-		 if (myCat.getCatCircle().overlaps(killer.getKillerCircle())) {
-		 gameOver();
-		 }
-		 }
+		for (Killer killer : killers) {
+			if (myCat.getCatCircle().overlaps(killer.getKillerCircle())) {
+				gameOver();
+			}
+		}
 	}
 
 	public void gameOver() {
 		gameOver = true;
 		System.out.println("GAME OVER!");
+		// usun killery
 		if (killers.size > 0) {
 			killers.clear();
 		}
+		// schowaj kota
 		myCat.setCatPos(new Vector2(-200, -200));
 		myCat.setVelocity(new Vector2(0, 0));
+		// pokaz gameover
 	}
 
 	@Override

@@ -1,0 +1,113 @@
+{
+"skeleton": { "hash": "Wg1rE2moqROWKC2HnvZn/8mfyMo", "spine": "2.1.27", "width": 622.99, "height": 630.99, "images": "./images/" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "ryj", "parent": "root", "length": 427.25, "x": 358.29, "y": 355.94, "rotation": 88.64 },
+	{ "name": "OKOl", "parent": "ryj", "length": 72.06, "x": 219.75, "y": 158.74, "rotation": 28.86 },
+	{ "name": "OKOp", "parent": "ryj", "length": 80.91, "x": 200.77, "y": -132.1, "rotation": -26.38 },
+	{ "name": "jezyk caly", "parent": "ryj", "length": 285.77, "x": 116.61, "y": 19.47, "rotation": -178.18 },
+	{ "name": "otwor gebowy", "parent": "ryj", "length": 113.99, "x": 4.59, "y": -1.41, "rotation": -179.09 },
+	{ "name": "zrenicaL", "parent": "OKOl", "length": 65.64, "x": 17.48, "y": -6.56, "rotation": -31.43 },
+	{ "name": "zrenicaP", "parent": "OKOp", "length": 76.24, "x": 14.01, "y": -20.1, "rotation": 4.05 }
+],
+"slots": [
+	{ "name": "otwor gebowy", "bone": "otwor gebowy", "attachment": "otwor gebowy" },
+	{ "name": "jezyk caly", "bone": "jezyk caly", "attachment": "jezyk caly" },
+	{ "name": "ryj", "bone": "ryj", "attachment": "ryj" },
+	{ "name": "OKOp", "bone": "OKOp", "attachment": "OKOp" },
+	{ "name": "OKOl", "bone": "OKOl", "attachment": "OKOl" },
+	{ "name": "zrenicaL2", "bone": "zrenicaL", "attachment": "zrenicaL" },
+	{ "name": "zrenicaL", "bone": "OKOl" },
+	{ "name": "zrenicaP", "bone": "zrenicaP", "attachment": "zrenicaP" }
+],
+"skins": {
+	"default": {
+		"OKOl": {
+			"OKOl": { "x": 9.29, "y": -6.22, "rotation": -117.5, "width": 194, "height": 121 }
+		},
+		"OKOp": {
+			"OKOp": { "x": 14.49, "y": -1.87, "rotation": -62.26, "width": 175, "height": 103 }
+		},
+		"jezyk caly": {
+			"jezyk caly": { "x": 107.49, "y": 62.04, "rotation": 89.53, "width": 321, "height": 294 }
+		},
+		"otwor gebowy": {
+			"otwor gebowy": { "x": -43.78, "y": 38.36, "rotation": 90.45, "width": 475, "height": 302 }
+		},
+		"ryj": {
+			"ryj": { "x": 212.62, "y": 20.81, "rotation": -88.64, "width": 623, "height": 562 }
+		},
+		"zrenicaL2": {
+			"zrenicaL": { "x": 11.38, "y": -4.86, "rotation": -84.97, "width": 95, "height": 114 }
+		},
+		"zrenicaP": {
+			"zrenicaP": { "x": 6.3, "y": 10.31, "rotation": -66.31, "width": 95, "height": 125 }
+		}
+	}
+},
+"animations": {
+	"idle": {
+		"bones": {
+			"ryj": {
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 }
+				]
+			},
+			"jezyk caly": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0 },
+					{ "time": 0.3333, "x": 87.33, "y": 2.06 },
+					{ "time": 0.6666, "x": 0, "y": 0 }
+				]
+			},
+			"zrenicaL": {
+				"rotate": [
+					{ "time": 0, "angle": 0 }
+				]
+			}
+		}
+	},
+	"in": {
+		"bones": {
+			"ryj": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 0,
+						"y": 0,
+						"curve": [ 0.237, 0.32, 0.75, 1 ]
+					},
+					{
+						"time": 0.6666,
+						"x": 1.2,
+						"y": 1.2,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 1.1666, "x": 1, "y": 1 }
+				]
+			}
+		}
+	},
+	"out": {
+		"bones": {
+			"ryj": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 1,
+						"y": 1,
+						"curve": [ 0.322, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.4,
+						"x": 1.2,
+						"y": 1.2,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.7666, "x": 0, "y": 0 }
+				]
+			}
+		}
+	}
+}
+}
