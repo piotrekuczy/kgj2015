@@ -1,0 +1,62 @@
+
+cat.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+glowa
+  rotate: false
+  xy: 2, 37
+  size: 80, 89
+  orig: 80, 89
+  offset: 0, 0
+  index: -1
+lapa_p1
+  rotate: false
+  xy: 108, 71
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+lapa_p2
+  rotate: false
+  xy: 108, 71
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+lapa_t1
+  rotate: false
+  xy: 84, 98
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+lapa_t2
+  rotate: false
+  xy: 84, 98
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+ogon1
+  rotate: true
+  xy: 84, 64
+  size: 32, 22
+  orig: 32, 22
+  offset: 0, 0
+  index: -1
+ogon2
+  rotate: true
+  xy: 84, 35
+  size: 27, 22
+  orig: 27, 22
+  offset: 0, 0
+  index: -1
+tlow
+  rotate: false
+  xy: 2, 2
+  size: 67, 33
+  orig: 67, 33
+  offset: 0, 0
+  index: -1
