@@ -48,6 +48,7 @@ public class GameScreen implements Screen, InputProcessor {
 	BitmapFont font;
 
 	// killer
+	int nowyX;
 	private Array<Killer> killers;
 
 	Killer sampleKiller;
@@ -56,8 +57,8 @@ public class GameScreen implements Screen, InputProcessor {
 
 	// cat
 	Cat myCat;
-	float catVel = 260f;
-	float jumpForce = 700f;
+	float catVel = 300f;
+	float jumpForce = 800f;
 	int catStartXright = 0;
 	int catStartXleft = 700;
 	int ghostOffset = 150;
@@ -69,6 +70,7 @@ public class GameScreen implements Screen, InputProcessor {
 	int floor;
 	// booleans
 	boolean jump = false;
+	boolean gameOver = false;
 
 	// timers
 	float scoreTimer;
@@ -119,133 +121,147 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 
 	public void newFloor() {
-		if (killers.size > 0) {
-			killers.clear();
-		}
-		// System.out.println("KILLERS ARRAY SIZE= " + killers.size);
-		// random floor
-		floor = MathUtils.random(0, 3);
-//		 floor = 0;
-		switch (floor) {
-		case 0:
-			// losuj czy mają biec z lewej do prawej czy z prawej do lewej
-			int random = MathUtils.random(0, 1);
-			if (random == 0) {
-				// losowanie czy z lewej do prawej
-				myCat.setCatPos(new Vector2(catStartXright, 10));
-				myCat.getVelocity().x = catVel;
-				myCat.getSkeleton().setFlipX(false);
-				myCat.getGhostSkeleton().setFlipX(false);
-				myCat.setGhostOffset(ghostOffset);
-			} else {
-				// czy z prawej do lewej
-				myCat.setCatPos(new Vector2(catStartXleft, 10));
-				myCat.getVelocity().x = -catVel;
-				myCat.getSkeleton().setFlipX(true);
-				myCat.getGhostSkeleton().setFlipX(true);
-				myCat.setGhostOffset(-ghostOffset);
+		if (!gameOver) {
+			if (killers.size > 0) {
+				killers.clear();
 			}
-			myCat.setMyGravity(myGravity);
-			generateKillers(10 + 10);
-			break;
-		case 1:
-			// losuj czy mają biec z lewej do prawej czy z prawej do lewej
-			int random1 = MathUtils.random(0, 1);
-			if (random1 == 0) {
-				// losowanie czy z lewej do prawej
-				myCat.setCatPos(new Vector2(catStartXright, 230));
-				myCat.getVelocity().x = catVel;
-				myCat.getSkeleton().setFlipX(false);
-				myCat.getGhostSkeleton().setFlipX(false);
-				myCat.setGhostOffset(ghostOffset);
-			} else {
-				// czy z prawej do lewej
-				myCat.setCatPos(new Vector2(catStartXleft, 230));
-				myCat.getVelocity().x = -catVel;
-				myCat.getSkeleton().setFlipX(true);
-				myCat.getGhostSkeleton().setFlipX(true);
-				myCat.setGhostOffset(-ghostOffset);
+			// System.out.println("KILLERS ARRAY SIZE= " + killers.size);
+			// random floor
+			floor = MathUtils.random(0, 3);
+			// floor = 0;
+			switch (floor) {
+			case 0:
+				// losuj czy mają biec z lewej do prawej czy z prawej do lewej
+				int random = MathUtils.random(0, 1);
+				if (random == 0) {
+					// losowanie czy z lewej do prawej
+					myCat.setCatPos(new Vector2(catStartXright, 10));
+					myCat.getVelocity().x = catVel;
+					myCat.getSkeleton().setFlipX(false);
+					myCat.getGhostSkeleton().setFlipX(false);
+					myCat.setGhostOffset(ghostOffset);
+				} else {
+					// czy z prawej do lewej
+					myCat.setCatPos(new Vector2(catStartXleft, 10));
+					myCat.getVelocity().x = -catVel;
+					myCat.getSkeleton().setFlipX(true);
+					myCat.getGhostSkeleton().setFlipX(true);
+					myCat.setGhostOffset(-ghostOffset);
+				}
+				myCat.setMyGravity(myGravity);
+				generateKillers(10 + 10);
+				break;
+			case 1:
+				// losuj czy mają biec z lewej do prawej czy z prawej do lewej
+				int random1 = MathUtils.random(0, 1);
+				if (random1 == 0) {
+					// losowanie czy z lewej do prawej
+					myCat.setCatPos(new Vector2(catStartXright, 230));
+					myCat.getVelocity().x = catVel;
+					myCat.getSkeleton().setFlipX(false);
+					myCat.getGhostSkeleton().setFlipX(false);
+					myCat.setGhostOffset(ghostOffset);
+				} else {
+					// czy z prawej do lewej
+					myCat.setCatPos(new Vector2(catStartXleft, 230));
+					myCat.getVelocity().x = -catVel;
+					myCat.getSkeleton().setFlipX(true);
+					myCat.getGhostSkeleton().setFlipX(true);
+					myCat.setGhostOffset(-ghostOffset);
+				}
+				myCat.setMyGravity(myGravity);
+				generateKillers(230 + 10);
+				break;
+			case 2:
+				// losuj czy mają biec z lewej do prawej czy z prawej do lewej
+				int random2 = MathUtils.random(0, 1);
+				if (random2 == 0) {
+					// losowanie czy z lewej do prawej
+					myCat.setCatPos(new Vector2(catStartXright, 450));
+					myCat.getVelocity().x = catVel;
+					myCat.getSkeleton().setFlipX(false);
+					myCat.getGhostSkeleton().setFlipX(false);
+					myCat.setGhostOffset(ghostOffset);
+				} else {
+					// czy z prawej do lewej
+					myCat.setCatPos(new Vector2(catStartXleft, 450));
+					myCat.getVelocity().x = -catVel;
+					myCat.getSkeleton().setFlipX(true);
+					myCat.getGhostSkeleton().setFlipX(true);
+					myCat.setGhostOffset(-ghostOffset);
+				}
+				myCat.setMyGravity(myGravity);
+				generateKillers(450 + 10);
+				break;
+			case 3:
+				// losuj czy mają biec z lewej do prawej czy z prawej do lewej
+				int random3 = MathUtils.random(0, 1);
+				if (random3 == 0) {
+					// losowanie czy z lewej do prawej
+					myCat.setCatPos(new Vector2(catStartXright, 670));
+					myCat.getVelocity().x = catVel;
+					myCat.getSkeleton().setFlipX(false);
+					myCat.getGhostSkeleton().setFlipX(false);
+					myCat.setGhostOffset(ghostOffset);
+				} else {
+					// czy z prawej do lewej
+					myCat.setCatPos(new Vector2(catStartXleft, 670));
+					myCat.getVelocity().x = -catVel;
+					myCat.getSkeleton().setFlipX(true);
+					myCat.getGhostSkeleton().setFlipX(true);
+					myCat.setGhostOffset(-ghostOffset);
+				}
+				myCat.setMyGravity(myGravity);
+				generateKillers(670 + 10);
+				break;
 			}
-			myCat.setMyGravity(myGravity);
-			generateKillers(230 + 10);
-			break;
-		case 2:
-			// losuj czy mają biec z lewej do prawej czy z prawej do lewej
-			int random2 = MathUtils.random(0, 1);
-			if (random2 == 0) {
-				// losowanie czy z lewej do prawej
-				myCat.setCatPos(new Vector2(catStartXright, 450));
-				myCat.getVelocity().x = catVel;
-				myCat.getSkeleton().setFlipX(false);
-				myCat.getGhostSkeleton().setFlipX(false);
-				myCat.setGhostOffset(ghostOffset);
-			} else {
-				// czy z prawej do lewej
-				myCat.setCatPos(new Vector2(catStartXleft, 450));
-				myCat.getVelocity().x = -catVel;
-				myCat.getSkeleton().setFlipX(true);
-				myCat.getGhostSkeleton().setFlipX(true);
-				myCat.setGhostOffset(-ghostOffset);
-			}
-			myCat.setMyGravity(myGravity);
-			generateKillers(450 + 10);
-			break;
-		case 3:
-			// losuj czy mają biec z lewej do prawej czy z prawej do lewej
-			int random3 = MathUtils.random(0, 1);
-			if (random3 == 0) {
-				// losowanie czy z lewej do prawej
-				myCat.setCatPos(new Vector2(catStartXright, 670));
-				myCat.getVelocity().x = catVel;
-				myCat.getSkeleton().setFlipX(false);
-				myCat.getGhostSkeleton().setFlipX(false);
-				myCat.setGhostOffset(ghostOffset);
-			} else {
-				// czy z prawej do lewej
-				myCat.setCatPos(new Vector2(catStartXleft, 670));
-				myCat.getVelocity().x = -catVel;
-				myCat.getSkeleton().setFlipX(true);
-				myCat.getGhostSkeleton().setFlipX(true);
-				myCat.setGhostOffset(-ghostOffset);
-			}
-			myCat.setMyGravity(myGravity);
-			generateKillers(670 + 10);
-			break;
 		}
 	}
 
-	public void generateOneKiller(int floor) {
+	public void generateOneKiller(int floor, int kilerId) {
 		// ZROBIC random czy kolec gora czy kolec dol i zrobc dwie opcje
-		int random = MathUtils.random(0, 1);
-		if (random == 0) {
-			killers.add(new Killer(new Vector2(MathUtils.random(50, 600), floor), 10, false));
-		} else {
-			killers.add(new Killer(new Vector2(MathUtils.random(50, 600), floor + 200), 10, true));
+		int old_position = 0;
+		int position = 50;
+		for (int i = 1; i <= kilerId; i++) {
+			int random = MathUtils.random(0, 1);
+			// int position = MathUtils.random(i* 4/kilerId *100, i * 4/kilerId
+			// * 100 + 20);
+			if (random == 0)
+				old_position = position + 100;
+			else
+				old_position = position + 10;
+			position = MathUtils.random(old_position, old_position + 100);
+			if (position < 540) {
+				// System.out.println(position);
+				if (random == 0) {
+					// spel wystajacy z dolu
+					killers.add(new Killer(new Vector2(position, floor - 1), 5, false));
+				} else {
+					// spole zwisajace z gory
+					killers.add(new Killer(new Vector2(position, floor + 200), 5, true));
+				}
+			}
 		}
 	}
 
 	public void generateKillers(int floor) {
-		numberOfKillers = MathUtils.random(0, 3);
+		numberOfKillers = MathUtils.random(0, 7);
 		// System.out.println("NUMBER OF KILLERS = " + (numberOfKillers + 1));
-		switch (numberOfKillers) {
-		case 0:
-			generateOneKiller(floor);
-			break;
-		case 1:
-			generateOneKiller(floor);
-			generateOneKiller(floor);
-			break;
-		case 2:
-			generateOneKiller(floor);
-			generateOneKiller(floor);
-			generateOneKiller(floor);
-			break;
-		case 3:
-			generateOneKiller(floor);
-			generateOneKiller(floor);
-			generateOneKiller(floor);
-			break;
-		}
+		generateOneKiller(floor, 7);
+		// switch (numberOfKillers) {
+		// case 0:
+		//
+		// break;
+		// case 1:
+		// generateOneKiller(floor, 4 );
+		// break;
+		// case 2:
+		// generateOneKiller(floor, 4 );
+		// break;
+		// case 3:
+		// generateOneKiller(floor, 4 );
+		// break;
+		// }
 	}
 
 	@Override
@@ -298,12 +314,12 @@ public class GameScreen implements Screen, InputProcessor {
 		shpr.begin(ShapeType.Filled);
 		for (Killer killer : killers) {
 			if (killer.isUp()) {
-				shpr.setColor(0, 1, 0, 1f);
+				shpr.setColor(0, 0, 0, 1f);
 				// jesli killera up jest true to rysuj go do gory
 				shpr.triangle(killer.getKillerPos().x, killer.getKillerPos().y, killer.getKillerPos().x + 50,
 						killer.getKillerPos().y, killer.getKillerPos().x + 25, killer.getKillerPos().y - 50);
 			} else {
-				shpr.setColor(0, 0, 1, 1f);
+				shpr.setColor(0, 0, 0, 1f);
 				// jesli killera up to false to rysuj go do dolu
 				shpr.triangle(killer.getKillerPos().x, killer.getKillerPos().y, killer.getKillerPos().x + 50,
 						killer.getKillerPos().y, killer.getKillerPos().x + 25, killer.getKillerPos().y + 50);
@@ -358,25 +374,37 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 
 	public void checkBounds() {
-		if (myCat.getVelocity().x > 0) {
-			if (myCat.getCatPos().x >= 700) {
-				System.out.println("END");
-				newFloor();
-			}
-		} else {
-			if (myCat.getCatPos().x <= -100) {
-				System.out.println("END");
-				newFloor();
+		if (!gameOver) {
+			if (myCat.getVelocity().x > 0) {
+				if (myCat.getCatPos().x >= 700) {
+//					System.out.println("END");
+					newFloor();
+				}
+			} else {
+				if (myCat.getCatPos().x <= -100) {
+//					System.out.println("END");
+					newFloor();
+				}
 			}
 		}
 	}
 
 	public void checkcollisions() {
-		for (Killer killer : killers) {
-			if (myCat.getCatCircle().overlaps(killer.getKillerCircle())) {
-				// System.out.println("KOLIZJA!");
-			}
+		 for (Killer killer : killers) {
+		 if (myCat.getCatCircle().overlaps(killer.getKillerCircle())) {
+		 gameOver();
+		 }
+		 }
+	}
+
+	public void gameOver() {
+		gameOver = true;
+		System.out.println("GAME OVER!");
+		if (killers.size > 0) {
+			killers.clear();
 		}
+		myCat.setCatPos(new Vector2(-200, -200));
+		myCat.setVelocity(new Vector2(0, 0));
 	}
 
 	@Override

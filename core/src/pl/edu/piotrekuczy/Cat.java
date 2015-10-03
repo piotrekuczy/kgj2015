@@ -21,7 +21,7 @@ public class Cat {
 	Vector2 catPos;
 	int catGround;
 	Vector2 velocity;
-	float catRad = 30f;
+	float catRad = 20f;
 	int ghostOffset;
 	float myGravity;
 	boolean jump;
