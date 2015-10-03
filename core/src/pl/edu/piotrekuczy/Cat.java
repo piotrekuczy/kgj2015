@@ -11,49 +11,71 @@ import com.esotericsoftware.spine.SkeletonJson;
 
 public class Cat {
 
-	TextureAtlas atlas;
-	SkeletonJson json;
-	SkeletonData skeletonData;
-	Skeleton skeleton;
-	Animation runAnimation;
+	TextureAtlas catAtlas, ghostAtlas;
+	SkeletonJson catJson, ghostJson;
+	SkeletonData catSkeletonData, ghostSkeletonData;
+	Skeleton catSkeleton, ghostSkeleton;
+	Animation catRunAnimation, ghostRunAnimation;
 	float animationTime = 0;
 
 	Vector2 catPos;
 	Vector2 velocity;
 	float catRad = 40f;
+	int ghostOffset;
 
 	private Circle catCircle;
 
-	public Cat(Vector2 catPos) {
+	public Cat(Vector2 catPos, float vel, int ghostOffset) {
 
 		this.catPos = catPos;
+		this.velocity = new Vector2(vel, 0);
 		catCircle = new Circle(catPos.x, catPos.y+30, catRad);
+		
+		this.ghostOffset = ghostOffset;
 
 		// spine
 
-		atlas = new TextureAtlas(Gdx.files.internal("spine/ingame/cat.atlas"));
-		json = new SkeletonJson(atlas);
-		skeletonData = json.readSkeletonData(Gdx.files.internal("spine/ingame/cat.json"));
-		skeleton = new Skeleton(skeletonData);
-		runAnimation = skeletonData.findAnimation("run");
-
-		skeleton.getRootBone().setScale(0.7f);
-		skeleton.setPosition(catPos.x, catPos.y);
+		//cat
+		catAtlas = new TextureAtlas(Gdx.files.internal("spine/ingame/cat.atlas"));
+		catJson = new SkeletonJson(catAtlas);
+		catSkeletonData = catJson.readSkeletonData(Gdx.files.internal("spine/ingame/cat.json"));
+		catSkeleton = new Skeleton(catSkeletonData);
+		catRunAnimation = catSkeletonData.findAnimation("run");
+		catSkeleton.getRootBone().setScale(0.7f);
+		catSkeleton.setPosition(catPos.x, catPos.y);
 		// skeleton.setColor(new Color(0, 1, 1, 1));
-		skeleton.updateWorldTransform();
+		catSkeleton.updateWorldTransform();
+		
+		//ghost
+		ghostAtlas = new TextureAtlas(Gdx.files.internal("spine/ingame/ghost.atlas"));
+		ghostJson = new SkeletonJson(ghostAtlas);
+		ghostSkeletonData = ghostJson.readSkeletonData(Gdx.files.internal("spine/ingame/ghost.json"));
+		ghostSkeleton = new Skeleton(ghostSkeletonData);
+		ghostRunAnimation = ghostSkeletonData.findAnimation("fly");
+		ghostSkeleton.getRootBone().setScale(0.7f);
+		ghostSkeleton.setPosition(catPos.x-ghostOffset, catPos.y+20);
+		// ghostSkeleton.setColor(new Color(0, 1, 1, 1));
+		ghostSkeleton.updateWorldTransform();
 
 	}
 
-	public void update() {
-//		System.out.println("cat update");
+	public void update(float delta) {
 		animationTime += Gdx.graphics.getDeltaTime();
-		runAnimation.apply(skeleton, 0, animationTime, true, null);
-		skeleton.updateWorldTransform();
+		//cat
+		catRunAnimation.apply(catSkeleton, 0, animationTime, true, null);
+		catSkeleton.updateWorldTransform();
+		//ghost
+		ghostRunAnimation.apply(ghostSkeleton, 0, animationTime, true, null);
+		ghostSkeleton.updateWorldTransform();
+		
+		//cat
+		catPos.x += velocity.x * delta;
+		catCircle.x = catPos.x;
+		catCircle.y = catPos.y+30;
+		catSkeleton.setPosition(catPos.x, catPos.y);
+		//ghost
+		ghostSkeleton.setPosition(catPos.x-ghostOffset, catPos.y+20);
 
-	}
-
-	public void draw() {
-//		System.out.println("cat draw");
 	}
 
 	public Circle getCatCircle() {
@@ -81,11 +103,19 @@ public class Cat {
 	}
 
 	public Skeleton getSkeleton() {
-		return skeleton;
+		return catSkeleton;
 	}
 
 	public void setSkeleton(Skeleton skeleton) {
-		this.skeleton = skeleton;
+		this.catSkeleton = skeleton;
+	}
+
+	public Skeleton getGhostSkeleton() {
+		return ghostSkeleton;
+	}
+
+	public void setGhostSkeleton(Skeleton ghostSkeleton) {
+		this.ghostSkeleton = ghostSkeleton;
 	}
 
 }

@@ -38,7 +38,11 @@ public class GameScreen implements Screen {
 	SkeletonRenderer sr;
 	SkeletonRendererDebug dr;
 
+	// cat
 	Cat myCat;
+	float catVel = 260f;
+	int catStartX = 0;
+	int ghostOffset = 100;
 
 	int floor;
 
@@ -63,31 +67,26 @@ public class GameScreen implements Screen {
 		glay = new GlyphLayout(font, "score");
 
 		// spine
-
 		sr = new SkeletonRenderer();
 		dr = new SkeletonRendererDebug();
 		dr.setBoundingBoxes(false);
 		dr.setRegionAttachments(false);
 
-		// cat
-
 		// random pos
-
 		floor = MathUtils.random(0, 3);
 		System.out.println(floor);
-
 		switch (floor) {
 		case 0:
-			myCat = new Cat(new Vector2(320, 10));
+			myCat = new Cat(new Vector2(catStartX, 10), catVel, ghostOffset);
 			break;
 		case 1:
-			myCat = new Cat(new Vector2(320, 230));
+			myCat = new Cat(new Vector2(catStartX, 230), catVel, ghostOffset);
 			break;
 		case 2:
-			myCat = new Cat(new Vector2(320, 450));
+			myCat = new Cat(new Vector2(catStartX, 450), catVel, ghostOffset);
 			break;
 		case 3:
-			myCat = new Cat(new Vector2(320, 670));
+			myCat = new Cat(new Vector2(catStartX, 670), catVel, ghostOffset);
 			break;
 		}
 
@@ -104,16 +103,24 @@ public class GameScreen implements Screen {
 		Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+		// batch
 		batch.begin();
+		// spine
+		sr.draw(batch, myCat.getGhostSkeleton());
 		sr.draw(batch, myCat.getSkeleton());
+		// screen mask
 		batch.draw(gameMask, 0, 0);
+		// score
 		font.draw(batch, glay, (viewport.getWorldWidth() / 2) - (glay.width / 2), 940);
 		batch.end();
-		// dr.draw(myCat.getSkeleton());
-		myCat.update();
-		// myCat.draw();
 
-		// render collision circle
+		// spine dabug
+		// dr.draw(myCat.getSkeleton());
+
+		// update cat logic
+		myCat.update(delta);
+
+		// collision objects
 		shpr.setProjectionMatrix(batch.getProjectionMatrix());
 		shpr.begin(ShapeType.Line);
 		shpr.setColor(1, 1, 1, 1f);

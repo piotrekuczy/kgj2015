@@ -1,0 +1,40 @@
+{
+"skeleton": { "hash": "e5WexhQtSPkSheH/TKwKQ2ZBAPk", "spine": "2.1.27", "width": 72.99, "height": 99.99, "images": "./images/" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "duch", "parent": "root", "length": 99.8, "x": 2.35, "y": 3.58, "rotation": 88.64 }
+],
+"slots": [
+	{ "name": "duch", "bone": "duch", "attachment": "duch" }
+],
+"skins": {
+	"default": {
+		"duch": {
+			"duch": { "x": 48.3, "y": 5.07, "rotation": -88.64, "width": 73, "height": 100 }
+		}
+	}
+},
+"animations": {
+	"fly": {
+		"bones": {
+			"duch": {
+				"translate": [
+					{
+						"time": 0,
+						"x": 0,
+						"y": -0.96,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3333,
+						"x": 0,
+						"y": 37.59,
+						"curve": [ 0.25, 0, 0.346, 1 ]
+					},
+					{ "time": 0.6666, "x": 0, "y": -0.96 }
+				]
+			}
+		}
+	}
+}
+}
