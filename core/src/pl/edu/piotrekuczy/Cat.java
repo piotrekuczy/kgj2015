@@ -81,7 +81,7 @@ public class Cat {
 		catCircle.y = catPos.y + 30;
 		catSkeleton.setPosition(catPos.x, catPos.y);
 		// ghost
-		ghostSkeleton.setPosition(catPos.x - ghostOffset, catPos.y + 20);
+		ghostSkeleton.setPosition(catPos.x - ghostOffset, catPos.y + 20 * delta);
 
 		// gravity
 		velocity.y += myGravity * delta * 10;

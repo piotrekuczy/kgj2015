@@ -100,23 +100,23 @@ public class GameScreen implements Screen, InputProcessor {
 
 		// random pos
 		floor = MathUtils.random(0, 3);
-//		System.out.println(floor);
+		// System.out.println(floor);
 		switch (floor) {
 		case 0:
 			myCat = new Cat(new Vector2(catStartX, 10), catVel, ghostOffset, myGravity);
-			generateKillers(10+10);
+			generateKillers(10 + 10);
 			break;
 		case 1:
 			myCat = new Cat(new Vector2(catStartX, 230), catVel, ghostOffset, myGravity);
-			generateKillers(230+10);
+			generateKillers(230 + 10);
 			break;
 		case 2:
 			myCat = new Cat(new Vector2(catStartX, 450), catVel, ghostOffset, myGravity);
-			generateKillers(450+10);
+			generateKillers(450 + 10);
 			break;
 		case 3:
 			myCat = new Cat(new Vector2(catStartX, 670), catVel, ghostOffset, myGravity);
-			generateKillers(670+10);
+			generateKillers(670 + 10);
 			break;
 		}
 
@@ -126,15 +126,15 @@ public class GameScreen implements Screen, InputProcessor {
 		// ZROBIC random czy kolec gora czy kolec dol i zrobc dwie opcje
 		int random = MathUtils.random(0, 1);
 		if (random == 0) {
-			killers.add(new Killer(new Vector2(MathUtils.random(50, 600), floor), 20, false));
+			killers.add(new Killer(new Vector2(MathUtils.random(50, 600), floor), 10, false));
 		} else {
-			killers.add(new Killer(new Vector2(MathUtils.random(50, 600), floor+200), 20, true));
+			killers.add(new Killer(new Vector2(MathUtils.random(50, 600), floor + 200), 10, true));
 		}
 	}
 
 	public void generateKillers(int floor) {
 		numberOfKillers = MathUtils.random(0, 3);
-		 System.out.println("NUMBER OF KILLERS = " + (numberOfKillers+1));
+		System.out.println("NUMBER OF KILLERS = " + (numberOfKillers + 1));
 		switch (numberOfKillers) {
 		case 0:
 			generateOneKiller(floor);
@@ -182,8 +182,9 @@ public class GameScreen implements Screen, InputProcessor {
 		// update cat logic
 		myCat.update(delta);
 
-		// collision objects
 		shpr.setProjectionMatrix(batch.getProjectionMatrix());
+
+		// cat collision object
 		shpr.begin(ShapeType.Line);
 		shpr.setColor(1, 1, 1, 1f);
 		shpr.circle(myCat.getCatCircle().x, myCat.getCatCircle().y, myCat.getCatRad());
@@ -191,13 +192,12 @@ public class GameScreen implements Screen, InputProcessor {
 
 		// killers
 		shpr.begin(ShapeType.Filled);
-
 		for (Killer killer : killers) {
 			if (killer.isUp()) {
 				shpr.setColor(0, 1, 0, 1f);
 				// jesli killera up jest true to rysuj go do gory
 				shpr.triangle(killer.getKillerPos().x, killer.getKillerPos().y, killer.getKillerPos().x + 50,
-				killer.getKillerPos().y, killer.getKillerPos().x + 25, killer.getKillerPos().y - 50);
+						killer.getKillerPos().y, killer.getKillerPos().x + 25, killer.getKillerPos().y - 50);
 			} else {
 				shpr.setColor(0, 0, 1, 1f);
 				// jesli killera up to false to rysuj go do dolu
@@ -205,13 +205,31 @@ public class GameScreen implements Screen, InputProcessor {
 						killer.getKillerPos().y, killer.getKillerPos().x + 25, killer.getKillerPos().y + 50);
 			}
 		}
+		shpr.end();
 
+		// killers collision objects
+		shpr.begin(ShapeType.Line);
+		shpr.setColor(1, 1, 1, 1f);
+		for (Killer killer : killers) {
+			shpr.circle(killer.getKillerCircle().x + 25, killer.getKillerCircle().y, killer.getKillerRadius());
+		}
 		shpr.end();
 
 		// score
 		batch.begin();
 		font.draw(batch, glay, (viewport.getWorldWidth() / 2) - (glay.width / 2), 940);
 		batch.end();
+
+		checkcollisions();
+
+	}
+
+	public void checkcollisions() {
+		for (Killer killer : killers) {
+			if (myCat.getCatCircle().overlaps(killer.getKillerCircle())) {
+				System.out.println("KOLIZJA!");
+			}
+		}
 	}
 
 	@Override

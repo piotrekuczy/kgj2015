@@ -16,7 +16,14 @@ public class Killer {
 		this.up = up;
 		this.killerPos = killerPos;
 		this.killerRadius = killerRadius;
-		killerCircle = new Circle(killerPos, killerRadius);
+		
+		if (up){
+			// jesli killer jest up to jego circle lezy tutaj
+			killerCircle = new Circle(new Vector2(killerPos.x, killerPos.y-40), killerRadius);
+		} else {
+			// jesli killer jest down to jego circle lezy tutaj
+			killerCircle = new Circle(new Vector2(killerPos.x, killerPos.y+40), killerRadius);
+		}
 		
 	}
 
@@ -48,6 +55,16 @@ public class Killer {
 
 	public void setUp(boolean up) {
 		this.up = up;
+	}
+
+
+	public Circle getKillerCircle() {
+		return killerCircle;
+	}
+
+
+	public void setKillerCircle(Circle killerCircle) {
+		this.killerCircle = killerCircle;
 	}
 
 }
