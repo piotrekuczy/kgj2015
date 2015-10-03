@@ -414,6 +414,10 @@ public class GameScreen implements Screen, InputProcessor {
 		batch.begin();
 		sr.draw(batch, overSkeleton);
 		batch.end();
+		
+		if(state.getCurrent(0) == null){
+			System.out.println("Koniec animacji");
+		}
 		}
 		
 		checkcollisions();
