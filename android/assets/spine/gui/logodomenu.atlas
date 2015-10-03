@@ -1,0 +1,125 @@
+
+logodomenu.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+LAPAl
+  rotate: false
+  xy: 496, 287
+  size: 133, 171
+  orig: 133, 171
+  offset: 0, 0
+  index: -1
+LAPAp
+  rotate: false
+  xy: 548, 480
+  size: 132, 174
+  orig: 132, 174
+  offset: 0, 0
+  index: -1
+O
+  rotate: false
+  xy: 348, 296
+  size: 146, 162
+  orig: 146, 162
+  offset: 0, 0
+  index: -1
+a
+  rotate: false
+  xy: 2, 99
+  size: 155, 181
+  orig: 155, 181
+  offset: 0, 0
+  index: -1
+b
+  rotate: false
+  xy: 548, 836
+  size: 163, 184
+  orig: 163, 184
+  offset: 0, 0
+  index: -1
+c
+  rotate: true
+  xy: 864, 880
+  size: 140, 158
+  orig: 140, 158
+  offset: 0, 0
+  index: -1
+e
+  rotate: false
+  xy: 264, 124
+  size: 121, 159
+  orig: 121, 159
+  offset: 0, 0
+  index: -1
+g
+  rotate: false
+  xy: 190, 285
+  size: 156, 173
+  orig: 156, 173
+  offset: 0, 0
+  index: -1
+glowa
+  rotate: false
+  xy: 2, 460
+  size: 544, 560
+  orig: 544, 560
+  offset: 0, 0
+  index: -1
+i
+  rotate: false
+  xy: 159, 111
+  size: 103, 169
+  orig: 103, 169
+  offset: 0, 0
+  index: -1
+k
+  rotate: false
+  xy: 2, 282
+  size: 186, 176
+  orig: 186, 176
+  offset: 0, 0
+  index: -1
+n
+  rotate: false
+  xy: 548, 656
+  size: 149, 178
+  orig: 149, 178
+  offset: 0, 0
+  index: -1
+o1
+  rotate: false
+  xy: 713, 857
+  size: 149, 163
+  orig: 149, 163
+  offset: 0, 0
+  index: -1
+okol
+  rotate: true
+  xy: 631, 294
+  size: 184, 87
+  orig: 184, 87
+  offset: 0, 0
+  index: -1
+okop
+  rotate: false
+  xy: 2, 2
+  size: 204, 95
+  orig: 204, 95
+  offset: 0, 0
+  index: -1
+stopaL
+  rotate: false
+  xy: 387, 247
+  size: 79, 47
+  orig: 79, 47
+  offset: 0, 0
+  index: -1
+stopaP
+  rotate: false
+  xy: 387, 198
+  size: 78, 47
+  orig: 78, 47
+  offset: 0, 0
+  index: -1
