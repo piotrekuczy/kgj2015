@@ -146,4 +146,30 @@ public class Cat {
 		this.jump = jump;
 	}
 
+	public Vector2 getCatPos() {
+		return catPos;
+	}
+
+	public void setCatPos(Vector2 catPos) {
+		this.catPos = catPos;
+		catGround = (int) catPos.y;
+		System.out.println("cat pos setted");
+	}
+
+	public int getGhostOffset() {
+		return ghostOffset;
+	}
+
+	public void setGhostOffset(int ghostOffset) {
+		this.ghostOffset = ghostOffset;
+	}
+
+	public float getMyGravity() {
+		return myGravity;
+	}
+
+	public void setMyGravity(float myGravity) {
+		this.myGravity = myGravity;
+	}
+
 }

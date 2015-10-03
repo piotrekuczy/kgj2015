@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -66,7 +68,9 @@ public class GameScreen implements Screen, InputProcessor {
 	int floor;
 	// booleans
 	boolean jump = false;
+
 	// timers
+	float scoreTimer;
 
 	public GameScreen(KgjGame game) {
 		this.game = game;
@@ -94,6 +98,8 @@ public class GameScreen implements Screen, InputProcessor {
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		font.getData().setScale(0.99f);
 		glay = new GlyphLayout(font, "score");
+		// glay = new GlyphLayout(font, "score", new Color(1, 1, 1, 1), 300,
+		// Align.left, true);
 
 		// spine
 		sr = new SkeletonRenderer();
@@ -104,29 +110,51 @@ public class GameScreen implements Screen, InputProcessor {
 		// array of killers
 		killers = new Array<Killer>();
 
-		// random pos
+		// make cat outside a screen
+		myCat = new Cat(new Vector2(-200, 200), 0, 0, 0);
+		
+		// random floor
+		newFloor();
+	}
+
+	public void newFloor() {
+		// random floor
 		floor = MathUtils.random(0, 3);
-		// floor = 3;
-		// System.out.println(floor);
+//		floor = 0;
 		switch (floor) {
 		case 0:
-			myCat = new Cat(new Vector2(catStartX, 10), catVel, ghostOffset, myGravity);
+//			myCat = new Cat(new Vector2(catStartX, 10), catVel, ghostOffset, myGravity);
+			myCat.setCatPos(new Vector2(catStartX, 10));
+			myCat.getVelocity().x = catVel;
+			myCat.setGhostOffset(ghostOffset);
+			myCat.setMyGravity(myGravity);
 			generateKillers(10 + 10);
 			break;
 		case 1:
-			myCat = new Cat(new Vector2(catStartX, 230), catVel, ghostOffset, myGravity);
+//			myCat = new Cat(new Vector2(catStartX, 230), catVel, ghostOffset, myGravity);
+			myCat.setCatPos(new Vector2(catStartX, 230));
+			myCat.getVelocity().x = catVel;
+			myCat.setGhostOffset(ghostOffset);
+			myCat.setMyGravity(myGravity);
 			generateKillers(230 + 10);
 			break;
 		case 2:
-			myCat = new Cat(new Vector2(catStartX, 450), catVel, ghostOffset, myGravity);
+//			myCat = new Cat(new Vector2(catStartX, 450), catVel, ghostOffset, myGravity);
+			myCat.setCatPos(new Vector2(catStartX, 450));
+			myCat.getVelocity().x = catVel;
+			myCat.setGhostOffset(ghostOffset);
+			myCat.setMyGravity(myGravity);
 			generateKillers(450 + 10);
 			break;
 		case 3:
-			myCat = new Cat(new Vector2(catStartX, 670), catVel, ghostOffset, myGravity);
+//			myCat = new Cat(new Vector2(catStartX, 670), catVel, ghostOffset, myGravity);
+			myCat.setCatPos(new Vector2(catStartX, 670));
+			myCat.getVelocity().x = catVel;
+			myCat.setGhostOffset(ghostOffset);
+			myCat.setMyGravity(myGravity);
 			generateKillers(670 + 10);
 			break;
 		}
-
 	}
 
 	public void generateOneKiller(int floor) {
@@ -165,6 +193,12 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
+
+		scoreTimer += 0.1f;
+		scoreTimer = (float) ((double) Math.round(scoreTimer * 100000d) / 100000d);
+//		System.out.println(scoreTimer);
+		glay.setText(font, scoreTimer + "", new Color(1, 1, 1, 1), 300, Align.left, true);
+
 		cameraInput();
 
 		camera.update();
