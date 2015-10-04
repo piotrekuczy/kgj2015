@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -32,6 +34,9 @@ public class MenuScreen implements Screen, InputProcessor {
 	Boolean fullscreen = false;
 	private float rotationSpeed = 0.5f;
 
+	// bitmaps
+	Texture winietka;
+
 	// SPINE logomenu
 
 	TextureAtlas logoAtlas;
@@ -42,15 +47,21 @@ public class MenuScreen implements Screen, InputProcessor {
 	float animationTime = 0;
 	AnimationState state;
 
+	boolean toTheEnd = false;
+
 	public MenuScreen(KgjGame game) {
 		this.game = game;
 	}
 
 	@Override
 	public void show() {
+		toTheEnd = false;
 		System.out.println("show method of menuscreen");
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
+		// bitmaps
+		winietka = new Texture(Gdx.files.internal("bitmaps/menuTlo.jpg"));
+		winietka.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		// spine
 		sr = new SkeletonRenderer();
 		camera = new OrthographicCamera(640, 960);
@@ -89,10 +100,11 @@ public class MenuScreen implements Screen, InputProcessor {
 		state.apply(logoSkeleton);
 		logoSkeleton.updateWorldTransform();
 		batch.begin();
+		batch.draw(winietka, 0, 0);
 		sr.draw(batch, logoSkeleton);
 		batch.end();
-		
-		if(state.getCurrent(0) == null){
+
+		if (toTheEnd && state.getCurrent(0) == null) {
 			game.setScreen(game.getGamescreen());
 		}
 	}
@@ -162,6 +174,7 @@ public class MenuScreen implements Screen, InputProcessor {
 		}
 
 	}
+
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
@@ -183,8 +196,11 @@ public class MenuScreen implements Screen, InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
-		System.out.println("KLIK");
-		state.addAnimation(0, "out", false,0);
+		// System.out.println("KLIK");
+		if(!toTheEnd){
+		toTheEnd = true;
+		state.setAnimation(0, "out", false);
+		}
 		return false;
 	}
 

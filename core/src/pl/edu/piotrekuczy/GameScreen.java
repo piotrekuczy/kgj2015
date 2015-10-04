@@ -453,7 +453,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	public void gameOver() {
 		gameOver = true;
-		System.out.println("GAME OVER!");
+//		System.out.println("GAME OVER!");
 		// usun killery
 		if (killers.size > 0) {
 			killers.clear();
