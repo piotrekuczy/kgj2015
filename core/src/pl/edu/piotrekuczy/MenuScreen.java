@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.Animation;
@@ -36,6 +39,12 @@ public class MenuScreen implements Screen, InputProcessor {
 
 	// bitmaps
 	Texture winietka;
+
+	// fonts
+	GlyphLayout bestScoreTxt,bestScoreValue;
+	BitmapFont font;
+
+	float bestScore;
 
 	// SPINE logomenu
 
@@ -68,6 +77,14 @@ public class MenuScreen implements Screen, InputProcessor {
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		viewport = new FitViewport(640, 960, camera);
 		camera.update();
+
+		// fonts
+		font = new BitmapFont(Gdx.files.internal("fonts/mariofont.fnt"));
+		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		font.getData().setScale(0.6f);
+		bestScoreTxt = new GlyphLayout(font, "best score:");
+		bestScoreValue = new GlyphLayout(font, ""+bestScore);
+
 		// spine
 
 		logoAtlas = new TextureAtlas(Gdx.files.internal("spine/gui/logodomenu.atlas"));
@@ -102,6 +119,9 @@ public class MenuScreen implements Screen, InputProcessor {
 		batch.begin();
 		batch.draw(winietka, 0, 0);
 		sr.draw(batch, logoSkeleton);
+		// score
+		font.draw(batch, bestScoreTxt, (viewport.getWorldWidth() / 2) - 190, 180);
+		font.draw(batch, bestScoreValue, (viewport.getWorldWidth() / 2)-50 , 120);
 		batch.end();
 
 		if (toTheEnd && state.getCurrent(0) == null) {
@@ -197,9 +217,9 @@ public class MenuScreen implements Screen, InputProcessor {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
 		// System.out.println("KLIK");
-		if(!toTheEnd){
-		toTheEnd = true;
-		state.setAnimation(0, "out", false);
+		if (!toTheEnd) {
+			toTheEnd = true;
+			state.setAnimation(0, "out", false);
 		}
 		return false;
 	}
@@ -226,6 +246,14 @@ public class MenuScreen implements Screen, InputProcessor {
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public float getBestScore() {
+		return bestScore;
+	}
+
+	public void setBestScore(float bestScore) {
+		this.bestScore = bestScore;
 	}
 
 }

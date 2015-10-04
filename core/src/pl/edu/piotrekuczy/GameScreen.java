@@ -114,6 +114,7 @@ public class GameScreen implements Screen, InputProcessor {
 		worlds = new Texture(Gdx.files.internal("bitmaps/worlds.png"));
 		worlds.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
+		// fonts
 		font = new BitmapFont(Gdx.files.internal("fonts/mariofont.fnt"));
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		font.getData().setScale(0.99f);
@@ -417,6 +418,7 @@ public class GameScreen implements Screen, InputProcessor {
 		
 			if (state.getCurrent(0) == null) {
 				gameOver = false;
+				game.getMenuscreen().setBestScore(scoreTimer);
 				game.setScreen(game.getMenuscreen());
 				
 			}
