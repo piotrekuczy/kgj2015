@@ -101,6 +101,9 @@ public class GameScreen implements Screen, InputProcessor {
 
 		Gdx.input.setInputProcessor(this);
 
+		game.getSound().stop();
+		game.setId2(game.getSound2().loop()); 
+		
 		System.out.println("show method of gamescreen");
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(640, 960);
@@ -523,8 +526,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		game.getSound2().stop();
 	}
 
 	@Override

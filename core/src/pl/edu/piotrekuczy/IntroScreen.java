@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -54,6 +55,7 @@ public class IntroScreen implements Screen, InputProcessor {
 		System.out.println("show method of menuscreen");
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
+
 		// spine
 		sr = new SkeletonRenderer();
 		camera = new OrthographicCamera(640, 960);
@@ -94,13 +96,14 @@ public class IntroScreen implements Screen, InputProcessor {
 		if (state.getCurrent(0) == null) {
 			game.setScreen(game.getMenuscreen());
 		}
-		
+
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 	}
+
 	private void cameraInput() {
 		if (Gdx.input.isKeyPressed(Input.Keys.TAB)) {
 			fullscreen = !fullscreen;
@@ -111,32 +114,33 @@ public class IntroScreen implements Screen, InputProcessor {
 				Gdx.graphics.setDisplayMode(640, 960, false);
 			}
 		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-//			camera.zoom += 0.02;
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-//			camera.zoom -= 0.02;
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-//			camera.translate(3, 0, 0);
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-//			camera.translate(-3, 0, 0);
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-//			camera.translate(0, 3, 0);
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-//			camera.translate(0, -3, 0);
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-//			camera.rotate(-rotationSpeed, 0, 0, 1);
-//		}
-//		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-//			camera.rotate(rotationSpeed, 0, 0, 1);
-//		}
+		// if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+		// camera.zoom += 0.02;
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+		// camera.zoom -= 0.02;
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+		// camera.translate(3, 0, 0);
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+		// camera.translate(-3, 0, 0);
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+		// camera.translate(0, 3, 0);
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+		// camera.translate(0, -3, 0);
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+		// camera.rotate(-rotationSpeed, 0, 0, 1);
+		// }
+		// if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+		// camera.rotate(rotationSpeed, 0, 0, 1);
+		// }
 
 	}
+
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub

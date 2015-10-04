@@ -67,6 +67,8 @@ public class MenuScreen implements Screen, InputProcessor {
 		System.out.println("show method of menuscreen");
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
+		game.getSound().stop();
+		game.getSound().loop();
 		// bitmaps
 		winietka = new Texture(Gdx.files.internal("bitmaps/menuTlo.jpg"));
 		winietka.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -150,8 +152,8 @@ public class MenuScreen implements Screen, InputProcessor {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		// wyl loopa
+		game.getSound().stop(game.getId1());
 	}
 
 	@Override
