@@ -38,7 +38,7 @@ public class MenuScreen implements Screen, InputProcessor {
 	private float rotationSpeed = 0.5f;
 
 	// bitmaps
-	Texture winietka;
+	Texture winietka, credits;
 
 	// fonts
 	GlyphLayout bestScoreTxt,bestScoreValue;
@@ -71,6 +71,8 @@ public class MenuScreen implements Screen, InputProcessor {
 		// bitmaps
 		winietka = new Texture(Gdx.files.internal("bitmaps/menuTlo.jpg"));
 		winietka.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		credits = new Texture(Gdx.files.internal("bitmaps/credits.png"));
+		credits.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		// spine
 		sr = new SkeletonRenderer();
 		camera = new OrthographicCamera(640, 960);
@@ -81,7 +83,7 @@ public class MenuScreen implements Screen, InputProcessor {
 		// fonts
 		font = new BitmapFont(Gdx.files.internal("fonts/mariofont.fnt"));
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		font.getData().setScale(0.6f);
+		font.getData().setScale(0.4f);
 		bestScoreTxt = new GlyphLayout(font, "best score:");
 		bestScoreValue = new GlyphLayout(font, ""+bestScore);
 
@@ -95,7 +97,7 @@ public class MenuScreen implements Screen, InputProcessor {
 		logoIdleAnimation = logoSkeletonData.findAnimation("idle");
 		logoOutAnimation = logoSkeletonData.findAnimation("out");
 		logoSkeleton.getRootBone().setScale(1f);
-		logoSkeleton.setPosition(325, -50);
+		logoSkeleton.setPosition(325, 90);
 
 		logoSkeleton.updateWorldTransform();
 		AnimationStateData stateData = new AnimationStateData(logoSkeletonData);
@@ -118,10 +120,11 @@ public class MenuScreen implements Screen, InputProcessor {
 		logoSkeleton.updateWorldTransform();
 		batch.begin();
 		batch.draw(winietka, 0, 0);
+		batch.draw(credits, 0, -230);
 		sr.draw(batch, logoSkeleton);
 		// score
-		font.draw(batch, bestScoreTxt, (viewport.getWorldWidth() / 2) - 190, 180);
-		font.draw(batch, bestScoreValue, (viewport.getWorldWidth() / 2)-50 , 120);
+		font.draw(batch, bestScoreTxt, (viewport.getWorldWidth() / 2) - 120, 80);
+		font.draw(batch, bestScoreValue, (viewport.getWorldWidth() / 2)-20 , 40);
 		batch.end();
 
 		if (toTheEnd && state.getCurrent(0) == null) {
