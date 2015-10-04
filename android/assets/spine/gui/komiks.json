@@ -1,0 +1,99 @@
+{
+"skeleton": { "hash": "E9x0MGgyvGqjEnfgKwkD0y7dXl4", "spine": "2.1.27", "width": 587.97, "height": 848.1, "images": "./images/" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "komiks1", "parent": "root", "length": 267.17, "x": 338.07, "y": 630.48, "rotation": 102.43 },
+	{ "name": "komiks2", "parent": "root", "length": 247.52, "x": 288.15, "y": 591.48, "rotation": -79.73 },
+	{ "name": "komiks3", "parent": "root", "length": 250.4, "x": 313.11, "y": 75.12, "rotation": 82.37 },
+	{ "name": "tekst", "parent": "root", "length": 107.65, "x": 316.23, "y": 468.24, "rotation": 89.54 }
+],
+"slots": [
+	{ "name": "komiks3", "bone": "komiks3", "attachment": "komiks3" },
+	{ "name": "komiks2", "bone": "komiks2", "attachment": "komiks2" },
+	{ "name": "komiks1", "bone": "komiks1", "attachment": "komiks1" },
+	{ "name": "tekst", "bone": "tekst", "attachment": "tekst" }
+],
+"skins": {
+	"default": {
+		"komiks1": {
+			"komiks1": { "x": 105.73, "y": -5.81, "rotation": -102.43, "width": 572, "height": 340 }
+		},
+		"komiks2": {
+			"komiks2": { "x": 140.57, "y": 7.4, "rotation": 79.73, "width": 577, "height": 433 }
+		},
+		"komiks3": {
+			"komiks3": { "x": 142.29, "y": 10.05, "rotation": -82.37, "width": 588, "height": 321 }
+		},
+		"tekst": {
+			"tekst": { "x": 25.31, "y": -7.56, "rotation": -89.54, "width": 502, "height": 137 }
+		}
+	}
+},
+"animations": {
+	"animation": {
+		"slots": {
+			"komiks1": {
+				"color": [
+					{ "time": 0, "color": "ffffff04" },
+					{ "time": 5.4666, "color": "ffffff00" },
+					{ "time": 5.9666, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 10, "color": "ffffffff" },
+					{ "time": 11.3333, "color": "ffffff00" }
+				]
+			},
+			"komiks2": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 6.7333, "color": "ffffff00" },
+					{ "time": 7.2, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 10, "color": "ffffffff" },
+					{ "time": 11.3333, "color": "ffffff00" }
+				]
+			},
+			"komiks3": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 8.0666, "color": "ffffff00" },
+					{ "time": 8.6, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 10, "color": "ffffffff" },
+					{ "time": 11.3333, "color": "ffffff00" }
+				]
+			},
+			"tekst": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" },
+					{ "time": 1.6666, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 3.7333, "color": "ffffffff" },
+					{ "time": 4.9666, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"komiks1": {
+				"scale": [
+					{ "time": 5.4666, "x": 0, "y": 1 },
+					{ "time": 5.9666, "x": 1.2, "y": 1 },
+					{ "time": 6.2333, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 10, "x": 1, "y": 1 }
+				]
+			},
+			"komiks2": {
+				"scale": [
+					{ "time": 6.7333, "x": 0, "y": 1 },
+					{ "time": 7.2, "x": 1.2, "y": 1 },
+					{ "time": 7.4333, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 10, "x": 1, "y": 1 }
+				]
+			},
+			"komiks3": {
+				"scale": [
+					{ "time": 8.0666, "x": 0, "y": 1 },
+					{ "time": 8.6, "x": 1.2, "y": 1 },
+					{ "time": 8.8666, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 10, "x": 1, "y": 1 }
+				]
+			}
+		}
+	}
+}
+}

@@ -6,14 +6,17 @@ public class KgjGame extends Game {
 
 	GameScreen gamescreen;
 	MenuScreen menuscreen;
+	IntroScreen introscreen;
 
 	@Override
 	public void create() {
 
 		menuscreen = new MenuScreen(this);
 		gamescreen = new GameScreen(this);
+		introscreen = new IntroScreen(this);
 		
-		setScreen(menuscreen);
+		setScreen(introscreen);
+//		setScreen(menuscreen);
 //		setScreen(gamescreen);
 	}
 

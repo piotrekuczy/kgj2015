@@ -4,6 +4,27 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+Group 1
+  rotate: false
+  xy: 479, 240
+  size: 125, 187
+  orig: 125, 187
+  offset: 0, 0
+  index: -1
+Group 1 copy
+  rotate: false
+  xy: 627, 600
+  size: 156, 190
+  orig: 156, 190
+  offset: 0, 0
+  index: -1
+Group 1 copy 2
+  rotate: false
+  xy: 627, 792
+  size: 182, 199
+  orig: 182, 199
+  offset: 0, 0
+  index: -1
 OKOl
   rotate: false
   xy: 2, 2
@@ -12,17 +33,10 @@ OKOl
   offset: 0, 0
   index: -1
 OKOp
-  rotate: true
-  xy: 479, 252
+  rotate: false
+  xy: 811, 888
   size: 175, 103
   orig: 175, 103
-  offset: 0, 0
-  index: -1
-jezyk caly
-  rotate: false
-  xy: 627, 697
-  size: 321, 294
-  orig: 321, 294
   offset: 0, 0
   index: -1
 otwor gebowy
@@ -48,7 +62,7 @@ zrenicaL
   index: -1
 zrenicaP
   rotate: false
-  xy: 627, 570
+  xy: 627, 473
   size: 95, 125
   orig: 95, 125
   offset: 0, 0

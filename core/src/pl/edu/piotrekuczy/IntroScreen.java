@@ -6,10 +6,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -22,7 +18,7 @@ import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.SkeletonRenderer;
 
-public class MenuScreen implements Screen, InputProcessor {
+public class IntroScreen implements Screen, InputProcessor {
 
 	KgjGame game;
 
@@ -36,28 +32,19 @@ public class MenuScreen implements Screen, InputProcessor {
 	Boolean fullscreen = false;
 	private float rotationSpeed = 0.5f;
 
-	// bitmaps
-	Texture winietka, credits;
-
-	// fonts
-	GlyphLayout bestScoreTxt,bestScoreValue;
-	BitmapFont font;
-
-	float bestScore;
-
 	// SPINE logomenu
 
 	TextureAtlas logoAtlas;
 	SkeletonJson logoJson;
 	SkeletonData logoSkeletonData;
 	Skeleton logoSkeleton;
-	Animation logoInAnimation, logoIdleAnimation, logoOutAnimation;
+	Animation logoInAnimation;
 	float animationTime = 0;
 	AnimationState state;
 
 	boolean toTheEnd = false;
 
-	public MenuScreen(KgjGame game) {
+	public IntroScreen(KgjGame game) {
 		this.game = game;
 	}
 
@@ -67,42 +54,26 @@ public class MenuScreen implements Screen, InputProcessor {
 		System.out.println("show method of menuscreen");
 		Gdx.input.setInputProcessor(this);
 		batch = new SpriteBatch();
-		// bitmaps
-		winietka = new Texture(Gdx.files.internal("bitmaps/menuTlo.jpg"));
-		winietka.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		credits = new Texture(Gdx.files.internal("bitmaps/credits.png"));
-		credits.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		// spine
 		sr = new SkeletonRenderer();
 		camera = new OrthographicCamera(640, 960);
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		viewport = new FitViewport(640, 960, camera);
 		camera.update();
-
-		// fonts
-		font = new BitmapFont(Gdx.files.internal("fonts/mariofont.fnt"));
-		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		font.getData().setScale(0.4f);
-		bestScoreTxt = new GlyphLayout(font, "best score:");
-		bestScoreValue = new GlyphLayout(font, ""+bestScore);
-
 		// spine
 
-		logoAtlas = new TextureAtlas(Gdx.files.internal("spine/gui/logodomenu.atlas"));
+		logoAtlas = new TextureAtlas(Gdx.files.internal("spine/gui/komiks.atlas"));
 		logoJson = new SkeletonJson(logoAtlas);
-		logoSkeletonData = logoJson.readSkeletonData(Gdx.files.internal("spine/gui/logodomenu.json"));
+		logoSkeletonData = logoJson.readSkeletonData(Gdx.files.internal("spine/gui/komiks.json"));
 		logoSkeleton = new Skeleton(logoSkeletonData);
-		logoInAnimation = logoSkeletonData.findAnimation("in");
-		logoIdleAnimation = logoSkeletonData.findAnimation("idle");
-		logoOutAnimation = logoSkeletonData.findAnimation("out");
+		logoInAnimation = logoSkeletonData.findAnimation("animation");
 		logoSkeleton.getRootBone().setScale(1f);
-		logoSkeleton.setPosition(325, 90);
+		logoSkeleton.setPosition(0, 0);
 
 		logoSkeleton.updateWorldTransform();
 		AnimationStateData stateData = new AnimationStateData(logoSkeletonData);
 		state = new AnimationState(stateData);
-		state.setAnimation(0, "in", false);
-		state.addAnimation(0, "idle", true, 0);
+		state.setAnimation(0, "animation", false);
 	}
 
 	@Override
@@ -118,48 +89,18 @@ public class MenuScreen implements Screen, InputProcessor {
 		state.apply(logoSkeleton);
 		logoSkeleton.updateWorldTransform();
 		batch.begin();
-		batch.draw(winietka, 0, 0);
-		batch.draw(credits, 0, -230);
 		sr.draw(batch, logoSkeleton);
-		// score
-		font.draw(batch, bestScoreTxt, (viewport.getWorldWidth() / 2) - 120, 80);
-		font.draw(batch, bestScoreValue, (viewport.getWorldWidth() / 2)-20 , 40);
 		batch.end();
-
-		if (toTheEnd && state.getCurrent(0) == null) {
-			game.setScreen(game.getGamescreen());
+		if (state.getCurrent(0) == null) {
+			game.setScreen(game.getMenuscreen());
 		}
+		
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void cameraInput() {
 		if (Gdx.input.isKeyPressed(Input.Keys.TAB)) {
 			fullscreen = !fullscreen;
@@ -196,6 +137,29 @@ public class MenuScreen implements Screen, InputProcessor {
 //		}
 
 	}
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -217,12 +181,7 @@ public class MenuScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		// System.out.println("KLIK");
-		if (!toTheEnd) {
-			toTheEnd = true;
-			state.setAnimation(0, "out", false);
-		}
+		game.setScreen(game.getMenuscreen());
 		return false;
 	}
 
@@ -248,14 +207,6 @@ public class MenuScreen implements Screen, InputProcessor {
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public float getBestScore() {
-		return bestScore;
-	}
-
-	public void setBestScore(float bestScore) {
-		this.bestScore = bestScore;
 	}
 
 }

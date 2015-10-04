@@ -138,7 +138,7 @@ public class GameScreen implements Screen, InputProcessor {
 		overIdleAnimation = overSkeletonData.findAnimation("idle");
 		overOutAnimation = overSkeletonData.findAnimation("out");
 		overSkeleton.getRootBone().setScale(1f);
-		overSkeleton.setPosition(-20, -50);
+		overSkeleton.setPosition(310, -50);
 
 		overSkeleton.updateWorldTransform();
 		AnimationStateData stateData = new AnimationStateData(overSkeletonData);
@@ -343,10 +343,10 @@ public class GameScreen implements Screen, InputProcessor {
 		shpr.setProjectionMatrix(batch.getProjectionMatrix());
 
 		// cat collision object
-		shpr.begin(ShapeType.Line);
-		shpr.setColor(1, 1, 1, 1f);
-		shpr.circle(myCat.getCatCircle().x, myCat.getCatCircle().y, myCat.getCatRad());
-		shpr.end();
+//		shpr.begin(ShapeType.Line);
+//		shpr.setColor(1, 1, 1, 1f);
+//		shpr.circle(myCat.getCatCircle().x, myCat.getCatCircle().y, myCat.getCatRad());
+//		shpr.end();
 
 		// killers
 		shpr.begin(ShapeType.Filled);
@@ -366,12 +366,12 @@ public class GameScreen implements Screen, InputProcessor {
 		shpr.end();
 
 		// killers collision objects
-		shpr.begin(ShapeType.Line);
-		shpr.setColor(1, 1, 1, 1f);
-		for (Killer killer : killers) {
-			shpr.circle(killer.getKillerCircle().x + 25, killer.getKillerCircle().y, killer.getKillerRadius());
-		}
-		shpr.end();
+//		shpr.begin(ShapeType.Line);
+//		shpr.setColor(1, 1, 1, 1f);
+//		for (Killer killer : killers) {
+//			shpr.circle(killer.getKillerCircle().x + 25, killer.getKillerCircle().y, killer.getKillerRadius());
+//		}
+//		shpr.end();
 
 		// zaslaniacze
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -419,6 +419,7 @@ public class GameScreen implements Screen, InputProcessor {
 			if (state.getCurrent(0) == null) {
 				gameOver = false;
 				game.getMenuscreen().setBestScore(scoreTimer);
+				scoreTimer = 0;
 				game.setScreen(game.getMenuscreen());
 				
 			}
@@ -481,30 +482,30 @@ public class GameScreen implements Screen, InputProcessor {
 				Gdx.graphics.setDisplayMode(640, 960, false);
 			}
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			camera.zoom += 0.02;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-			camera.zoom -= 0.02;
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			camera.translate(3, 0, 0);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			camera.translate(-3, 0, 0);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			camera.translate(0, 3, 0);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			camera.translate(0, -3, 0);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-			camera.rotate(-rotationSpeed, 0, 0, 1);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-			camera.rotate(rotationSpeed, 0, 0, 1);
-		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+//			camera.zoom += 0.02;
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+//			camera.zoom -= 0.02;
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+//			camera.translate(3, 0, 0);
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+//			camera.translate(-3, 0, 0);
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+//			camera.translate(0, 3, 0);
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+//			camera.translate(0, -3, 0);
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+//			camera.rotate(-rotationSpeed, 0, 0, 1);
+//		}
+//		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+//			camera.rotate(rotationSpeed, 0, 0, 1);
+//		}
 
 	}
 
