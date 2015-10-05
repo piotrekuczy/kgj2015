@@ -421,7 +421,9 @@ public class GameScreen implements Screen, InputProcessor {
 		
 			if (state.getCurrent(0) == null) {
 				gameOver = false;
-				game.getMenuscreen().setBestScore(scoreTimer);
+				if(game.getMenuscreen().getBestScore()<scoreTimer){
+					game.getMenuscreen().setBestScore(scoreTimer);
+				}
 				scoreTimer = 0;
 				game.setScreen(game.getMenuscreen());
 				
